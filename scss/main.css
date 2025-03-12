@@ -12029,7 +12029,7 @@ p {
   filter: brightness(0.3);
 }
 .image-card img {
-  transition: all 0.3s;
+  transition: all 0.5s;
 }
 .image-card .titre-image {
   position: absolute;
@@ -12037,9 +12037,5 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
-  transition: all 0.3s;
-}
-
-.text-align {
-  text-align: justify;
+  transition: all 0.5s;
 }/*# sourceMappingURL=main.css.map */
