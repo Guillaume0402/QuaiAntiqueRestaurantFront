@@ -11969,10 +11969,12 @@ textarea.form-control-lg {
 html {
   position: relative;
   min-height: 100%;
+  width: 100%;
 }
 
 main {
-  margin-bottom: 270px;
+  margin-bottom: 290px;
+  height: auto;
 }
 
 footer.footer {
@@ -11984,7 +11986,7 @@ footer.footer {
 
 p {
   font-family: "Merienda", sans-serif;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .hero-scene {
@@ -12023,7 +12025,8 @@ p {
 .image-card {
   position: relative;
 }
-.image-card:hover .titre-image {
+.image-card:hover .titre-image,
+.image-card:hover .action-image-buttons {
   opacity: 1;
 }
 .image-card:hover img {
@@ -12037,6 +12040,17 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.5s;
+}
+.image-card .action-image-buttons {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
   opacity: 0;
   transition: all 0.5s;
 }
