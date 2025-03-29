@@ -2,7 +2,7 @@ import Route from "./Route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
 // Création d'une route pour la page 404 (page introuvable)
-const route404 = new Route("404", "Page introuvable", "pages/404.html");
+const route404 = new Route("404", "Page introuvable", "pages/404.html", []);
 
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
@@ -26,8 +26,26 @@ const LoadContentPage = async () => {
     const path = window.location.pathname;
     const actualRoute = getRouteByUrl(path);
     
-    const mainPage = document.getElementById("main-page");
+// Vérification des autorisations d'accès à la page
+const AllRolesArray = actualRoute.authorize;
 
+if(AllRolesArray.length > 0) {
+    if(AllRolesArray.includes("disconnected")) {
+        if(isConnected()) {
+            window.location.replace("/");
+        }
+    }
+    else{
+        const roleUser = getRole();
+        if(!AllRolesArray.includes(roleUser)) {
+            // L'utilisateur a le rôle requis
+            window.location.replace("/");
+        }
+    }
+}
+
+
+    const mainPage = document.getElementById("main-page");
     // On applique une animation de sortie (si tu veux faire un effet fade-out aussi)
     mainPage.classList.remove("show");
     mainPage.classList.add("fade-in");
@@ -58,6 +76,10 @@ const LoadContentPage = async () => {
     }
     // Changement du titre de la page
     document.title = actualRoute.title + " - " + websiteName;
+
+    // afficher et masquer les éléments en fonction du rôle de l'utilisateur
+    showAndHideElementsForRoles();
+
 };
 
 

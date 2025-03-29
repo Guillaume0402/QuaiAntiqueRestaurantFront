@@ -4,16 +4,15 @@
 // Include any default variable overrides here (though functions won't be available)
 $primary: #7accb7;
 $secondary: #748386;
-$dark: #4B4E6D;
+$dark: #4b4e6d;
 $black: #222222;
 $font-family-sans-serif: "Sour Gummy", sans-serif;
 $font-family-monospace: "Merienda", sans-serif;
-
-
-
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 // Then add additional custom code here
 
-
+.shadow-primary {
+    box-shadow: 0 0 15px $primary;
+}

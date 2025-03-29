@@ -1,15 +1,13 @@
 @import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
 @import "custom";
 
-
 html {
     position: relative;
     min-height: 100%;
     width: 100%;
-
 }
 
-body{
+body {
     background-color: $dark;
 }
 
@@ -18,12 +16,19 @@ main {
     height: auto;
 }
 
-#navbarSupportedContent li a{
+#navbarSupportedContent li a {
     color: $primary;
 }
 
-#navbarSupportedContent li a:hover{
+#navbarSupportedContent li a:hover {
     color: $secondary;
+}
+
+#navbarSupportedContent li button {
+    color: $primary !important;
+}
+#navbarSupportedContent li button:hover {
+    color: $secondary !important;
 }
 
 footer.footer {
@@ -35,11 +40,19 @@ footer.footer {
 
 p {
     font-family: "Merienda", sans-serif;
-    font-size: 1rem;
+    font-size: 1.4rem;
 }
 
-
-
+@media screen and (max-width: 768px) {
+    p {
+        font-size: 1.2rem;
+    }
+}
+@media screen and (max-width: 576px) {
+    p {
+        font-size: 1rem;
+    }
+}
 
 
 .hero-scene {
@@ -103,7 +116,7 @@ p {
         opacity: 0;
         transition: all 0.5s;
     }
-    .action-image-buttons {        
+    .action-image-buttons {
         position: absolute;
         top: 0%;
         left: 0%;
@@ -120,21 +133,20 @@ p {
     color: $primary;
 }
 
-
-.allreservations{
+.allreservations {
     a {
         display: block;
         color: white;
-        padding:10px;
+        padding: 10px;
     }
 }
 
-
-.menu-items card-body {
-    background-color: aqua ;
+.menu-items {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: transparent
 }
-
-
 
 .fade-in {
     opacity: 0;
@@ -157,4 +169,3 @@ p {
     opacity: 1;
     transform: translateY(0);
 }
-

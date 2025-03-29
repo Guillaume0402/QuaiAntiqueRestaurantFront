@@ -11,12 +11,16 @@
     RewriteRule ^ index.html [QSA,L]
 </IfModule>
 
-<FilesMatch "\.(js|css)$">
-  FileETag None
+
+
+# Active le cache longue durée pour de meilleures performances
+<FilesMatch "\.(js|css|jpg|jpeg|png|gif|svg|woff|woff2|ttf|eot)$">
+  <IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+  </IfModule>
+
   <IfModule mod_headers.c>
-    Header unset ETag
-    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-    Header set Pragma "no-cache"
-    Header set Expires 0
+    Header set Cache-Control "public, max-age=31536000"
   </IfModule>
 </FilesMatch>

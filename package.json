@@ -1,6 +1,14 @@
 {
-  "dependencies": {
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3"
-  }
+    "dependencies": {
+        "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.11.3"
+    },
+    "scripts": {
+        "sass": "sass --quiet-deps --watch scss/main.scss scss/main.css",
+        "serve": "browser-sync start --config bs-config.js",
+        "dev": "concurrently \"npm run sass\" \"npm run serve\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
 }
