@@ -1,11 +1,12 @@
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  
-  # Si le fichier ou dossier n'existe pas...
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  
-  # ...alors renvoie index.html
-  RewriteRule ^ index.html [QSA,L]
+    RewriteEngine On
+    RewriteBase /
+
+    # Si le fichier ou dossier existe, on ne fait rien
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Rediriger toutes les autres requêtes vers index.html
+    RewriteRule ^ index.html [QSA,L]
 </IfModule>

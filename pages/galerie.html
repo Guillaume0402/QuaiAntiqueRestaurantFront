@@ -9,8 +9,8 @@
             Ajouter une photo
         </button>
     </div>
-    <div class="row row-cols-2 row-cols-lg-3 h-auto">
-        <div class="col p-3">
+    <div class="row h-auto">
+        <div class="col-12 col-sm-6 col-md-4 p-3">
             <div class="image-card">
                 <img src="../images/nougat.jpg" class="rounded w-100" alt="plat de grillades" />
                 <p class="titre-image text-white">titre</p>
@@ -26,31 +26,31 @@
                 </div>
             </div>
         </div>
-        <div class="col p-3">
+        <div class="col-12 col-sm-6 col-md-4 p-3">
             <div class="image-card">
                 <img src="../images/saumon.jpg" class="rounded w-100" alt="plat de grillades" />
                 <p class="titre-image text-white">titre</p>
             </div>
         </div>
-        <div class="col p-3">
+        <div class="col-12 col-sm-6 col-md-4 p-3">
             <div class="image-card">
                 <img src="../images/champignons.jpg" class="rounded w-100" alt="plat de grillades" />
                 <p class="titre-image text-white">titre</p>
             </div>
         </div>
-        <div class="col p-3">
+        <div class="col-12 col-sm-6 col-md-4 p-3">
             <div class="image-card">
                 <img src="../images/crevette.jpg" class="rounded w-100" alt="plat de grillades" />
                 <p class="titre-image text-white">titre</p>
             </div>
         </div>
-        <div class="col p-3">
+        <div class="col-12 col-sm-6 col-md-4 p-3">
             <div class="image-card">
                 <img src="../images/moules.jpg" class="rounded w-100" alt="plat de grillades" />
                 <p class="titre-image text-white">titre</p>
             </div>
         </div>
-        <div class="col p-3">
+        <div class="col-12 col-sm-6 col-md-4 p-3">
             <div class="image-card">
                 <img src="../images/quenelle.jpg" class="rounded w-100" alt="plat de grillades" />
                 <p class="titre-image text-white">titre</p>
@@ -65,7 +65,7 @@
 <!-- Modal Edition -->
 <div class="modal fade" id="EditPhotoModal" tabindex="-1" aria-labelledby="EditPhotoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-primary">
             <div class="modal-header">
                 <h2 class="modal-title fs-5" id="EditPhotoModalLabel">
                     Confirmer la suppression photo
@@ -75,16 +75,16 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="NamePhotoInput" class="form-label">Titre</label>
+                        <label for="NamePhotoInput" class="form-label text-dark">Titre</label>
                         <input type="text" class="form-control" id="NamePhotoInput" placeholder="Homard" />
                     </div>
                     <div class="mb-3">
-                        <label for="Imageinput" class="form-label">Image</label>
+                        <label for="Imageinput" class="form-label text-dark">Image</label>
                         <input type="file" class="form-control" id="Imageinput" />
                     </div>
                     <div class="modal-footer ">
                         <div class="m-auto">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-dark">
                                 Enregistrer
                             </button>
                         </div>
@@ -98,7 +98,7 @@
 <!-- Modal Suppression -->
 <div class="modal fade" id="DeletePhotoModal" tabindex="-1" aria-labelledby="DeletePhotoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-primary">
             <div class="modal-header">
                 <h2 class="modal-title fs-5" id="DeletePhotoModalLabel">
                     Edition photo
@@ -116,7 +116,7 @@
                             <button type="button" class="btn btn-danger">
                                 Supprimer
                             </button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
                                 Annuler
                             </button>
                         </div>

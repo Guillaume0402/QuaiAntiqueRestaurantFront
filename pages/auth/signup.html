@@ -9,18 +9,23 @@
         <div class="mb-3">
             <label for="NomInput" class="form-label">Nom</label>
             <input type="email" class="form-control" id="NomInput"placeholder="Votre nom"/>
+            <div class="invalid-feedback text-warning">Le nom est requis !</div> 
         </div>
         <div class="mb-3">
             <label for="PrenomInput" class="form-label">Prénom</label>
             <input type="email" class="form-control" id="PrenomInput"placeholder="Votre prénom"/>
+            <div class="invalid-feedback text-warning">Le prénom est requis</div> 
         </div>     
         <div class="mb-3">
             <label for="EmailInput" class="form-label">Email</label>
             <input type="email" class="form-control" id="EmailInput"placeholder="test@gmail.fr"/>
+            <div class="invalid-feedback text-warning">Email invalide</div> 
         </div>
         <div class="mb-3">
             <label for="PasswordInput" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="PasswordInput" />
+            <input type="password" class="form-control" id="PasswordInput">
+            <div class="invalid-feedback text-warning">Le mot de passe n'est pas assez robuste : au moins 8 caractères, 1 majuscule, 1 minuscule et un caractère spécial </div>
+            <div class="valid-feedback text-primary">Le mot de passe est robuste</div>
         </div>
         <div class="mb-3">
             <label for="ValidatePasswordInput" class="form-label">Mot de passe</label>
@@ -28,7 +33,7 @@
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">Connexion</button>
+            <button type="submit" class="btn btn-primary" id="ValidateInscription">Inscription</button>
         </div>
     </form>
     <div class="text-center pt-3">
