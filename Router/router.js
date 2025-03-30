@@ -33,6 +33,7 @@ if(AllRolesArray.length > 0) {
     if(AllRolesArray.includes("disconnected")) {
         if(isConnected()) {
             window.location.replace("/");
+            return;
         }
     }
     else{
@@ -40,6 +41,7 @@ if(AllRolesArray.length > 0) {
         if(!AllRolesArray.includes(roleUser)) {
             // L'utilisateur a le rôle requis
             window.location.replace("/");
+            return;
         }
     }
 }

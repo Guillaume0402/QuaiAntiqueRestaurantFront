@@ -1,23 +1,47 @@
 const mailInput = document.getElementById("emailInput");
 const passwordInput = document.getElementById("passwordInput");
 const btnSignin = document.getElementById("btnSignin");
+const signinForm = document.getElementById("formulaireConnexion");
 
 btnSignin.addEventListener("click", checkCredentials);
 
 function checkCredentials() {
-    // Ici, il faudra appeler l'API pour vérifier les credentials en BDD
+    const dataForm = new FormData(signinForm);
 
-    if (mailInput.value == "test@mail.com" && passwordInput.value == "123") {
-        //il faudra récupérer le vrai token
-        const token = "opipoifdgpoipogrjklsfdljksdijrfgoliloijsrdfglijo";
-        setToken(token);
-        //placer ce token en cookie
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-        setCookie("role", "admin", 7);
+    const raw = JSON.stringify({
+        username: dataForm.get("emailInput"),
+        password: dataForm.get("passwordInput"),
+    });
 
-        window.location.replace("/");
-    } else {
-        mailInput.classList.add("is-invalid");
-        passwordInput.classList.add("is-invalid");
-    }
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+    };
+
+    fetch(apiUrl+"login", requestOptions)
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                mailInput.classList.add("is-invalid");
+                passwordInput.classList.add("is-invalid");
+            }
+        })
+        .then((result) => {            
+            const token = result.apiToken;
+            setToken(token);
+            //placer ce token en cookie
+
+            setCookie(roleCookieName, result.roles[0], 7);
+            window.location.replace("/");
+        })
+
+        .catch((error) => console.error(error));
+
+
 }
