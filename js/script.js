@@ -14,8 +14,18 @@ function signout() {
     eraseCookie(tokenCookieName);
     eraseCookie(roleCookieName);
 
+    showAndHideElementsForRoles();
+    updateNavbar();
+    
     window.location.reload();
 }
+
+function logout() {
+    deleteToken(); // supprime le token
+    localStorage.removeItem("role"); // supprime le rôle stocké si tu l'utilises
+    window.location.replace("/"); // redirection vers la page d'accueil
+}
+
 function setToken(token) {
     setCookie(tokenCookieName, token, 7);
 }
@@ -24,10 +34,15 @@ function getToken() {
     return getCookie(tokenCookieName);
 }
 
+function deleteToken() {
+    localStorage.removeItem("authToken");
+}
+
+
 function setCookie(name, value, days) {
-    var expires = "";
+    let expires = "";
     if (days) {
-        var date = new Date();
+        const date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         expires = "; expires=" + date.toUTCString();
     }
@@ -35,12 +50,12 @@ function setCookie(name, value, days) {
 }
 
 function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == " ") c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(";");
+    for (const element of ca) {
+        let c = element;
+        while (c.startsWith(" ")) c = c.substring(1, c.length);
+        if (c.startsWith(nameEQ)) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -92,3 +107,19 @@ function showAndHideElementsForRoles() {
         }
     });
 }
+
+
+
+function updateNavbar() {
+    const isLogged = isConnected();
+    document.querySelectorAll(".only-connected").forEach(el => {
+        el.style.display = isLogged ? "inline-block" : "none";
+    });
+
+    document.querySelectorAll(".only-disconnected").forEach(el => {
+        el.style.display = !isLogged ? "inline-block" : "none";
+    });
+}
+
+
+

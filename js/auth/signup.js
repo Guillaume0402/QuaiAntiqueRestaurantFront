@@ -1,5 +1,14 @@
 // implémenter le js de ma page signup
+if (isConnected()) {
+    const role = normalizeRole(getRole());
 
+    if (role === "client") {
+        window.location.replace("/account");
+    } else if (role === "admin") {
+        window.location.replace("/admin");
+    }
+    
+}
 const inputNom = document.getElementById("NomInput");
 const inputPrenom = document.getElementById("PrenomInput");
 const inputEmail = document.getElementById("EmailInput");
@@ -124,3 +133,42 @@ function InscrireUtilisateur() {
             
         .catch((error) => console.error(error));
 }
+
+
+
+const toggle1 = document.getElementById("togglePassword1");
+const toggle2 = document.getElementById("togglePassword2");
+
+const icon1 = document.getElementById("iconPassword1");
+const icon2 = document.getElementById("iconPassword2");
+
+const input1 = document.getElementById("PasswordInput");
+const input2 = document.getElementById("ValidatePasswordInput");
+
+if (toggle1 && icon1 && input1) {
+    toggle1.addEventListener("click", () => {
+        const isPassword = input1.type === "password";
+        input1.type = isPassword ? "text" : "password";
+        icon1.classList.toggle("bi-eye", isPassword);
+        icon1.classList.toggle("bi-eye-slash", !isPassword);
+    });
+}
+
+if (toggle2 && icon2 && input2) {
+    toggle2.addEventListener("click", () => {
+        const isPassword = input2.type === "password";
+        input2.type = isPassword ? "text" : "password";
+        icon2.classList.toggle("bi-eye", isPassword);
+        icon2.classList.toggle("bi-eye-slash", !isPassword);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Cible tous les champs texte, email et password du formulaire
+    const inputs = document.querySelectorAll("form input");
+
+    inputs.forEach(input => {
+        // Applique un autocomplete personnalisé ou neutre
+        input.setAttribute("autocomplete", "new-password");
+    });
+});

@@ -1,12 +1,22 @@
 import Route from "./Route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
+function normalizeRole(role) {
+    switch (role) {
+        case "ROLE_USER":
+            return "client";
+        case "ROLE_ADMIN":
+            return "admin";
+        default:
+            return role;
+    }
+}
+
 // Création d'une route pour la page 404 (page introuvable)
 const route404 = new Route("404", "Page introuvable", "pages/404.html", []);
 
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
-    
     let currentRoute = null;
     // Parcours de toutes les routes pour trouver la correspondance
     allRoutes.forEach((element) => {
@@ -25,27 +35,30 @@ const getRouteByUrl = (url) => {
 const LoadContentPage = async () => {
     const path = window.location.pathname;
     const actualRoute = getRouteByUrl(path);
-    
-// Vérification des autorisations d'accès à la page
-const AllRolesArray = actualRoute.authorize;
 
-if(AllRolesArray.length > 0) {
-    if(AllRolesArray.includes("disconnected")) {
-        if(isConnected()) {
-            window.location.replace("/");
-            return;
+    // Vérification des autorisations d'accès à la page
+    const AllRolesArray = actualRoute.authorize;
+
+    if (AllRolesArray.length > 0) {
+        if (AllRolesArray.includes("disconnected")) {
+            if (isConnected()) {
+                window.location.replace("/");
+                return;
+            }
+        } else {
+            const roleUser = normalizeRole(getRole());
+            if (!isConnected()) {
+                // L'utilisateur n'est pas connecté : on l'envoie se connecter
+                window.location.replace("/signin?redirected=true");
+                return;
+            }
+            if (!AllRolesArray.includes(roleUser)) {
+                // L'utilisateur est connecté mais n'a pas le bon rôle : retour accueil
+                window.location.replace("/");
+                return;
+            }
         }
     }
-    else{
-        const roleUser = getRole();
-        if(!AllRolesArray.includes(roleUser)) {
-            // L'utilisateur a le rôle requis
-            window.location.replace("/");
-            return;
-        }
-    }
-}
-
 
     const mainPage = document.getElementById("main-page");
     // On applique une animation de sortie (si tu veux faire un effet fade-out aussi)
@@ -64,7 +77,7 @@ if(AllRolesArray.length > 0) {
     // Active l’animation d’entrée
     setTimeout(() => {
         mainPage.classList.add("show");
-    
+
         // Démarre les effets au scroll après chargement du contenu
         initScrollReveal();
     }, 50);
@@ -72,18 +85,24 @@ if(AllRolesArray.length > 0) {
     // Si JS externe à charger
     if (actualRoute.pathJS != "") {
         const scriptTag = document.createElement("script");
-        scriptTag.type = "text/javascript";
+        scriptTag.type = "module"; // plus moderne et sûr
         scriptTag.src = actualRoute.pathJS;
+        scriptTag.defer = true;
+    
+        // Attend que l’élément soit bien injecté dans le DOM
+        scriptTag.onload = () => {
+            console.log("[Router] Script", actualRoute.pathJS, "chargé !");
+        };
+    
         document.body.appendChild(scriptTag);
     }
+    
     // Changement du titre de la page
     document.title = actualRoute.title + " - " + websiteName;
 
     // afficher et masquer les éléments en fonction du rôle de l'utilisateur
     showAndHideElementsForRoles();
-
 };
-
 
 const routeEvent = (event) => {
     event = event || window.event;
@@ -94,24 +113,25 @@ const routeEvent = (event) => {
     LoadContentPage();
 };
 
-
 function initScrollReveal() {
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // une seule fois
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
+    const observer = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target); // une seule fois
+                }
+            });
+        },
+        {
+            threshold: 0.1,
+        }
+    );
 
-    document.querySelectorAll('.scroll-reveal').forEach(el => {
+    document.querySelectorAll(".scroll-reveal").forEach((el) => {
         observer.observe(el);
     });
 }
-
 
 // Gestion de l'événement de retour en arrière dans l'historique du navigateur
 window.onpopstate = LoadContentPage;
@@ -119,4 +139,3 @@ window.onpopstate = LoadContentPage;
 window.route = routeEvent;
 // Chargement du contenu de la page au chargement initial
 LoadContentPage();
-

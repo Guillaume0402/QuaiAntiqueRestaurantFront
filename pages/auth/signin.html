@@ -8,16 +8,42 @@
     <form id="formulaireConnexion">
         <div class="mb-3">
             <label for="emailInput" class="form-label">Email</label>
-            <input type="email" class="form-control" id="emailInput"placeholder="test@gmail.fr" name="emailInput"/>
-            <div class="invalid-feedback text-warning">Le mail et le mot de passe ne correspond pas </div>
+            <input
+                type="email"
+                class="form-control"
+                id="emailInput"
+                placeholder="Votre Email"
+                name="emailInput"
+            />
+            <div class="invalid-feedback text-warning">
+                Le mail et le mot de passe ne correspond pas
+            </div>
         </div>
         <div class="mb-3">
             <label for="passwordInput" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="passwordInput" name="passwordInput"/>
+            <div class="input-group">
+                <input
+                    type="password"
+                    class="form-control"
+                    id="passwordInput"
+                    name="passwordInput"
+                    placeholder="Mot de passe"
+                />
+                <button
+                    class="btn btn-outline-primary btn-primary text-black"
+                    type="button"
+                    id="togglePassword"
+                    aria-label="Afficher le mot de passe"
+                >
+                    <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                </button>
+            </div>
         </div>
 
         <div class="text-center">
-            <button type="button" class="btn btn-primary" id="btnSignin">Connexion</button>
+            <button type="button" class="btn btn-primary" id="btnSignin">
+                Connexion
+            </button>
         </div>
     </form>
     <div class="text-center pt-3">
